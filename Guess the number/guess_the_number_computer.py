@@ -10,7 +10,10 @@ def guess(num_limit):
     low = 1
     feedback = ""
     while feedback != "c":
-        guess = randint(low, high)
+        if low != high:
+            guess = randint(low, high)
+        else:
+            guess = high  # could also be low b/c both are same in this case
         feedback = input(f"Is {guess} too high(h), too low(l) or correct(c)?? ").lower()
         if feedback == "h":
             high = guess - 1
