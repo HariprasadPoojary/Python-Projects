@@ -28,10 +28,14 @@ def hangman():
     word_letters = set(word)  # All letters of the word in a set - unordered
     alphabet = set(string.ascii_uppercase)
     used_letters = set()  # what the user has guessed
+    lives = ["✿", "✿", "✿", "✿", "✿", "✿"]
 
-    while len(word_letters) > 0:
+    while len(word_letters) > 0 and len(lives) >= 1:
         # Print used letter
         print("You have used these letters: " + " ".join(used_letters))
+
+        # print lives
+        print("Lives left: " + " ".join(lives))
 
         # Show letter which is to be guessed '-' with already guessed letters
         curr_guess_letters = [
@@ -48,6 +52,7 @@ def hangman():
             user_letter
             in alphabet - used_letters
         ):
+
             # Add the letter to the set
             used_letters.add(user_letter)
             if (
@@ -57,10 +62,14 @@ def hangman():
             ):
                 # Remove the letter from word letters
                 word_letters.remove(user_letter)
+            else:
+                lives.pop()
         elif user_letter in used_letters:  # Letter already used!
             print("You have already used this letter. Please try again!")
+            lives.pop()
         else:
             print("You typed wrong character. Please try again")
+            lives.pop()
 
 
 hangman()
