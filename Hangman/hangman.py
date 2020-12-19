@@ -71,5 +71,11 @@ def hangman():
             print("You typed wrong character.")
             lives.pop()
 
+    # Gets here when lives = 0 or word is guessed correctly
+    if len(lives) == 0:
+        print(f"Sorry you're of lives, the word was {word}")
+    else:
+        print(f"Yeah!!!! you guessed {word} correctly")
+
 
 hangman()
