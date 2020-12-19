@@ -30,7 +30,7 @@ def hangman():
     used_letters = set()  # what the user has guessed
     lives = ["✿", "✿", "✿", "✿", "✿", "✿"]
 
-    while len(word_letters) > 0 and len(lives) >= 1:
+    while len(word_letters) > 0 and len(lives) > 0:
         # Print used letter
         print("You have used these letters: " + " ".join(used_letters))
 
@@ -65,10 +65,10 @@ def hangman():
             else:
                 lives.pop()
         elif user_letter in used_letters:  # Letter already used!
-            print("You have already used this letter. Please try again!")
+            print("You have already used this letter.")
             lives.pop()
         else:
-            print("You typed wrong character. Please try again")
+            print("You typed wrong character.")
             lives.pop()
 
 
