@@ -14,3 +14,6 @@ board_num = []
 for j in range(3):
     for i in range(j * 3, (j + 1) * 3):
         board_num.append(str(i))
+
+list_a = [1,2,3,4,5,6,7,8,9,0]
+print(list_a[3:6])
