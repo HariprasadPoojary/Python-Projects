@@ -1,5 +1,5 @@
 import math, random
-
+from time import sleep
 
 class Player:
     def __init__(self, letter) -> None:
@@ -18,6 +18,7 @@ class RandomComputerPlayer(Player):
     def get_move(self, game) -> None:
         # Get random spot from game(passed board)
         square = random.choice(game.available_moves())
+        sleep(0.9)
         return square
 
 
