@@ -1,4 +1,4 @@
-from player import HumanPlayer, RandomComputerPlayer
+from player import HumanPlayer, RandomComputerPlayer, SmartComputerPlayer
 
 
 class TicTacToe:
@@ -119,6 +119,7 @@ def play(game, x_player, o_player, print_game=True):
 
 if __name__ == "__main__":
     x_player = HumanPlayer("x")
-    o_player = RandomComputerPlayer("o")
+    o_player = SmartComputerPlayer("o")
+    # o_player = RandomComputerPlayer("o") #, if you want to win
     t = TicTacToe()
     play(t, x_player, o_player, True)
