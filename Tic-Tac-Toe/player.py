@@ -30,16 +30,16 @@ class SmartComputerPlayer(Player):
     # Minimax function
     def minimax(self, state, player):
         max_player = self.letter  # oursleves
-        min_player = "o" if player == "x" else "x"  # whatever the other letter is
+        other_min_player = "o" if player == "x" else "x"  # whatever the other letter is
 
         # Check if the previous move is a winner
         # Base case
-        if state.winner == min_player:
+        if state.winner == other_min_player:
             # return position and score in order to keep track of the score for minimax to work
             return {
                 "position": None,
                 "score": 1 * (state.num_empty_squares() + 1)
-                if min_player == max_player
+                if other_min_player == max_player
                 else -1 * (state.num_empty_squares() + 1),
             }
         elif not state.num_empty_squares():
@@ -67,7 +67,7 @@ class SmartComputerPlayer(Player):
             # 1. make a move, try the spot
             state.make_move(possible_move, player)
             # 2. recurse using minimax to simulate a game after making that move
-            sim_score = self.minimax(state, min_player)
+            sim_score = self.minimax(state, other_min_player)
             # 3. undo the move
             state.board[possible_move] = " "
             state.winner = None

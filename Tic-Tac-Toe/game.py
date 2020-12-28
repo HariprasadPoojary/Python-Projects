@@ -39,7 +39,7 @@ class TicTacToe:
         # winner is 3 in a row or column or diagnol
 
         # * check rows
-        row_ind = square // 3  # Get the row index
+        row_ind = square // 3  # Get the row index * // -> floor division
         # Get the whole row with values
         row = self.board[row_ind * 3 : (row_ind + 1) * 3]
         # Check if all the values in a row has same value
