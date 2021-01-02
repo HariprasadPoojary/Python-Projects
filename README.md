@@ -10,3 +10,4 @@ Basic python projects created with the aim of learning the language more deeply
 -   Rock✊🏽 - Paper🖐🏽 - Scissors✌🏽 with Undefeatable AI (MiniMax Algorithm)
 -   Tic-Tac-Toe ❌⭕
 -   Simple Binary Search
+-   Minesweeper💣
