@@ -110,7 +110,7 @@ class Board:
                 if r == row and c == col:
                     # our location, no need to check
                     continue
-                if self.board[row][col] == "*":
+                if self.board[r][c] == "*":
                     num_neighbor_bombs += 1
 
         return num_neighbor_bombs
@@ -137,10 +137,10 @@ class Board:
             for c in range(
                 max(0, col - 1), min(self.dimension - 1, col + 1) + 1
             ):  # range(left col, right col)
-                if (row, col) in self.dug:
+                if (r, c) in self.dug:
                     # No need to dig where we've already dug
                     continue
-                self.dig(row, col)
+                self.dig(r, c)
 
         # if our initial dig didn't hit a bomb then we shouldn't hit a bomb here
         return True
