@@ -1,6 +1,6 @@
 import numpy as np
 import png
-
+from pathlib import Path
 
 class Image:
     def __init__(self, x_pixels=0, y_pixels=0, num_channels=0, filename=""):
@@ -49,4 +49,4 @@ class Image:
 
 if __name__ == "__main__":
     im = Image(filename="lake.png")
-    im.write_image("test.png")
+    im.write_image("lake_test.png")
