@@ -7,7 +7,7 @@ Basic python projects created with the aim of learning the language more deeply
 -   Guess the number(Guessing by computer)
 -   Guess the number(Guessing by user)
 -   Hangman 🤺
--   Rock✊🏽 - Paper🖐🏽 - Scissors✌🏽 with an Undefeatable AI (MiniMax Algorithm)
--   Tic-Tac-Toe ❌⭕
+-   Rock✊🏽 - Paper🖐🏽 - Scissors✌🏽 
+-   Tic-Tac-Toe ❌⭕ __with an Undefeatable AI (MiniMax Algorithm)__
 -   Simple Binary Search
 -   Minesweeper💣
