@@ -1,6 +1,6 @@
 import numpy as np
 import png
-from pathlib import Path
+
 
 class Image:
     def __init__(self, x_pixels=0, y_pixels=0, num_channels=0, filename=""):
