@@ -89,19 +89,18 @@ class LinkedList:
                 current_node = current_node.next_node
                 cnt += 1
 
-    def remove(self, index=None) -> bool:
-        if index is None or index == 0:
+    def remove(self, data=None) -> bool:
+        if data is None or data == self.head.data:
             new_head = self.head.next_node
             del self.head
             self.head = new_head
 
-        cnt = 1
         # as index 0 is self.head, we start from next node
         current_node = self.head.next_node
         prev_node = self.head  # to keep track of previous node
         current_next_node = current_node.next_node
         while current_node:
-            if index == cnt:
+            if data == current_node.data:
                 # assign previous node's next node to - next node of cuurent node 😅
                 prev_node.next_node = current_next_node
                 del current_node  # delete current node
@@ -109,8 +108,10 @@ class LinkedList:
             else:
                 prev_node = current_node
                 current_node = current_node.next_node
-                current_next_node = current_node.next_node
-                cnt += 1
+                try:
+                    current_next_node = current_node.next_node
+                except AttributeError:
+                    exit
         return False
 
     def __repr__(self) -> str:
@@ -152,7 +153,9 @@ print(l)
 l.insert(75, 5)
 print(l)
 
-l.remove(4)
+l.remove(55)
 print(l)
-l.remove(3)
+l.remove(20)
+print(l)
+l.remove()
 print(l)
