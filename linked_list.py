@@ -66,30 +66,52 @@ class LinkedList:
         Inserts the data in the given index or at the head id index is None
         Takes O(n) time to search for the index
         Takes O(1) time to insert the data
+        Overall takes O(n) time
         """
         if index is None or index == 0:
             self.add(data)
             return True
 
         cnt = 1
-        current_node = (
-            self.head.next_node
-        )  # as index 0 is self.head, we start from next node
+        # as index 0 is self.head, we start from next node
+        current_node = self.head.next_node
         prev_node = self.head  # to keep track of previous node
         while current_node:
             if index == cnt:
                 new_node = Node(data)  # new node
-                new_node.next_node = (
-                    current_node  # place new node before current node i.e. on the index
-                )
-                prev_node.next_node = (
-                    new_node  # tag new node as next_node of current node - 1 node
-                )
+                # place new node before current node i.e. on the index
+                new_node.next_node = current_node
+                # tag new node as next_node of current node - 1 node
+                prev_node.next_node = new_node
                 return True
             else:  # no match of index
                 prev_node = current_node
                 current_node = current_node.next_node
                 cnt += 1
+
+    def remove(self, index=None) -> bool:
+        if index is None or index == 0:
+            new_head = self.head.next_node
+            del self.head
+            self.head = new_head
+
+        cnt = 1
+        # as index 0 is self.head, we start from next node
+        current_node = self.head.next_node
+        prev_node = self.head  # to keep track of previous node
+        current_next_node = current_node.next_node
+        while current_node:
+            if index == cnt:
+                # assign previous node's next node to - next node of cuurent node 😅
+                prev_node.next_node = current_next_node
+                del current_node  # delete current node
+                return True
+            else:
+                prev_node = current_node
+                current_node = current_node.next_node
+                current_next_node = current_node.next_node
+                cnt += 1
+        return False
 
     def __repr__(self) -> str:
         """
@@ -128,4 +150,9 @@ print(l)
 l.insert(65, 2)
 print(l)
 l.insert(75, 5)
+print(l)
+
+l.remove(4)
+print(l)
+l.remove(3)
 print(l)
