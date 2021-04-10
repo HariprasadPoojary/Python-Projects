@@ -89,24 +89,48 @@ class LinkedList:
                 current_node = current_node.next_node
                 cnt += 1
 
-    def remove(self, data=None) -> bool:
+    def remove(self, data=None, index=None) -> bool:
         """
         Remove item from LinkedList using Node.data value
         Takes O(n) to find the item
         Takes O(1) to delete the item
         Overall takes O(n) time
         """
-        if data is None or data == self.head.data:
+        find_item_with = None
+
+        def remove_head():
             new_head = self.head.next_node
             del self.head
             self.head = new_head
 
+        try:
+            if data is not None and index is not None:
+                raise AttributeError
+            elif data is not None and index is None:
+                if data == self.head.data:
+                    remove_head()
+                else:
+                    find_item_with = "data"
+            elif index is not None and data is None:
+                if index == 0:
+                    remove_head()
+                else:
+                    find_item_with = "index"
+            elif index is None and data is None:
+                remove_head()
+        except AttributeError:
+            print("Only one argument is accepted")
+            return False
+
         # as index 0 is self.head, we start from next node
+        cnt = 1
         current_node = self.head.next_node
         prev_node = self.head  # to keep track of previous node
         current_next_node = current_node.next_node
         while current_node:
-            if data == current_node.data:
+            if (data if find_item_with == "data" else index) == (
+                current_node.data if find_item_with == "data" else cnt
+            ):
                 # assign previous node's next node to - next node of cuurent node 😅
                 prev_node.next_node = current_next_node
                 del current_node  # delete current node
@@ -114,6 +138,7 @@ class LinkedList:
             else:
                 prev_node = current_node
                 current_node = current_node.next_node
+                cnt += 1
                 try:
                     current_next_node = current_node.next_node
                 except AttributeError:
@@ -159,9 +184,9 @@ print(l)
 l.insert(75, 5)
 print(l)
 
-l.remove(55)
+l.remove(data=55)
 print(l)
-l.remove(20)
+l.remove(index=5)
 print(l)
 l.remove()
 print(l)
