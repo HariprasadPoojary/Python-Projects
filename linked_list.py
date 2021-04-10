@@ -90,6 +90,12 @@ class LinkedList:
                 cnt += 1
 
     def remove(self, data=None) -> bool:
+        """
+        Remove item from LinkedList using Node.data value
+        Takes O(n) to find the item
+        Takes O(1) to delete the item
+        Overall takes O(n) time
+        """
         if data is None or data == self.head.data:
             new_head = self.head.next_node
             del self.head
