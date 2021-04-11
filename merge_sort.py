@@ -60,7 +60,20 @@ def merge_list(left_list, right_list):
     return sorted_list
 
 
+def verify_sorted(sorted_list):
+    n = len(sorted_list)
+    if n <= 1:
+        return True
+
+    return sorted_list[0] <= sorted_list[1] and verify_sorted(sorted_list[1:])
+
+
 if __name__ == "__main__":
     data = [12, 34, 55, 65, 77, 8, 9, 123, 344, 9]
-    sorted_list = merge_sort(data)
-    print(sorted_list)
+    is_sorted = verify_sorted(data)
+    print(f"Is List Sorted? --> {is_sorted}")
+
+    sorted_data = merge_sort(data)
+    is_sorted = verify_sorted(sorted_data)
+    print(f"Is List Sorted? --> {is_sorted}")
+    print(sorted_data)
