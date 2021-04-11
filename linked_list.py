@@ -145,6 +145,25 @@ class LinkedList:
                     exit
         return False
 
+    def node_at_index(self, index=None):
+        """
+        Returns a node object at given index
+        """
+        if index is None or index == 0:
+            return self.head
+
+        cnt = 1
+        current_node = self.head.next_node
+
+        while current_node:
+            if index == cnt:
+                return current_node
+            else:
+                current_node = current_node.next_node
+                cnt += 1
+
+        return None
+
     def __repr__(self) -> str:
         """
         Representation of items in LinkedList object
@@ -166,27 +185,30 @@ class LinkedList:
         return "->".join(node_list)
 
 
-l = LinkedList()
-l.add(20)
-l.add(30)
-l.add(40)
-l.add(50)
+if __name__ == "__main__":
 
-print(l)
+    l = LinkedList()
+    l.add(20)
+    l.add(30)
+    l.add(40)
+    l.add(50)
 
-print(l.search(20))
-print(l.search(80))
+    print(l)
 
-l.insert(55, 2)
-print(l)
-l.insert(65, 2)
-print(l)
-l.insert(75, 5)
-print(l)
+    print(l.search(20))
+    print(l.search(80))
 
-l.remove(data=55)
-print(l)
-l.remove(index=5)
-print(l)
-l.remove()
-print(l)
+    l.insert(55, 2)
+    print(l)
+    l.insert(65, 2)
+    print(l)
+    l.insert(75, 5)
+    print(l)
+    print(l.node_at_index(5))
+
+    l.remove(data=55)
+    print(l)
+    l.remove(index=5)
+    print(l)
+    l.remove()
+    print(l)
