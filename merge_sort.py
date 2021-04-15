@@ -1,80 +1,40 @@
 def merge_sort(data_list):
-    """
-    Sort data in the list in ascending order
-    Returns a new sorted list
 
-    How???
-    Divide: Find midpoint of the list and split into two sublists
-    Conquer: Use resursion - Sort the list recursively until len(list) <= 1
-    Combine: Merge back the sorted list created in above step
-
-    Takes (split_list + merge_list) i.e. O(n log n) time
-    """
-    #! Stopping point of recursion
+    # stopping point, base case
     if len(data_list) <= 1:
         return data_list
 
-    left_half, right_half = split_list(data_list)
+    # Get mid point to divide the list
+    mid_index = len(data_list) // 2
+
+    left_half = data_list[:mid_index]
+    right_half = data_list[mid_index:]
+
+    # further divide the list into left and right chunks until base case
     left = merge_sort(left_half)
     right = merge_sort(right_half)
 
-    return merge_list(left, right)
-
-
-def split_list(listt):
-    """
-    Divide given list at midpoint into two sublists
-    Takes O(log n) time overall
-    """
-    midpoint = len(listt) // 2
-    left_part = listt[:midpoint]
-    right_part = listt[midpoint:]
-    return left_part, right_part
-
-
-def merge_list(left_list, right_list):
-    """
-    Sort and merge the given two halves of the list
-    Takes O(n) time
-    """
+    # sorting setup
     sorted_list = []
-    i = 0
-    j = 0
+    left_index = 0
+    right_index = 0
 
-    while i < len(left_list) and j < len(right_list):
-        if left_list[i] < right_list[j]:
-            sorted_list.append(left_list[i])
-            i += 1
-        else:  # left_list[i] >= right_list[j]
-            sorted_list.append(right_list[j])
-            j += 1
+    while left_index < len(left) and right_index < len(right):
+        if left[left_index] < right[right_index]:
+            sorted_list.append(left[left_index])
+            left_index += 1
+        else:
+            sorted_list.append(right[right_index])
+            right_index += 1
 
-    while i < len(left_list):
-        sorted_list.append(left_list[i])
-        i += 1
-
-    while j < len(right_list):
-        sorted_list.append(right_list[j])
-        j += 1
+    # there is a chance that left or right still has values left in them
+    # add those remaining values to the sorted list
+    sorted_list += left[left_index:]
+    sorted_list += right[right_index:]
 
     return sorted_list
 
 
-def verify_sorted(sorted_list):
-    n = len(sorted_list)
-    if n <= 1:
-        return True
-
-    return sorted_list[0] <= sorted_list[1] and verify_sorted(sorted_list[1:])
-
-
 if __name__ == "__main__":
-    # data = [12, 34, 55, 65, 77, 8, 9, 123, 344, 9]
-    data = [12, 34, 55, 65,]
-    is_sorted = verify_sorted(data)
-    print(f"Is List Sorted? --> {is_sorted}")
-
-    sorted_data = merge_sort(data)
-    is_sorted = verify_sorted(sorted_data)
-    print(f"Is List Sorted? --> {is_sorted}")
-    print(sorted_data)
+    data = [34, 12, 80, 65]
+    print(merge_sort(data))
