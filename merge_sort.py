@@ -69,7 +69,8 @@ def verify_sorted(sorted_list):
 
 
 if __name__ == "__main__":
-    data = [12, 34, 55, 65, 77, 8, 9, 123, 344, 9]
+    # data = [12, 34, 55, 65, 77, 8, 9, 123, 344, 9]
+    data = [12, 34, 55, 65,]
     is_sorted = verify_sorted(data)
     print(f"Is List Sorted? --> {is_sorted}")
 
