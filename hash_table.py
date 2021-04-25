@@ -10,21 +10,20 @@ class MyHash:
         return value % self.bucket
 
     def search(self, item) -> bool:
-        for l in self.hash_table:
-            if item in l:
-                return True
-        return False
+        hash_val = self.hash(item)
+        return item in self.hash_table[hash_val]
 
     def insert(self, item) -> None:
         hash_val = self.hash(item)
         self.hash_table[hash_val].append(item)
 
     def remove(self, item) -> bool:
-        for l in self.hash_table:
-            if item in l:
-                l.remove(item)
-                return True
-        return False
+        hash_val = self.hash(item)
+        try:
+            self.hash_table[hash_val].remove(item)
+            return True
+        except ValueError:
+            return False
 
 
 if __name__ == "__main__":
