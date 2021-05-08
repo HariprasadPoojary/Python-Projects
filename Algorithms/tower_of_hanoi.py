@@ -7,21 +7,24 @@
 # Note: Transferring the top n-1 disks from source rod to Auxiliary rod can again be thought of as a fresh problem and can be solved in the same manner.
 
 
-def tower_hanoi(n_disks, rod_A, rod_B, rod_C):
+def tower_hanoi(n_disks, fromm, aux, to):
     """
     Moving disks from  A to C by using B as auxiliary/temp rod
     with rules mentioned above this func
     """
     # Base case
     if n_disks == 1:
-        print(f"Move 1 from {rod_A} to {rod_C}")
+        print(f"Move 1 from {fromm} to {to}")
     else:
         # Moving disks from  A to B by using C as auxiliary/temp rod
-        tower_hanoi(n_disks - 1, rod_A, rod_C, rod_B)
-        print(f"Move {n_disks} from {rod_A} to {rod_C}")
+        tower_hanoi(n_disks - 1, fromm, to, aux)
+        print(f"Move {n_disks} from {fromm} to {to}")
         # Moving disks from  B to C by using A as auxiliary/temp rod
-        tower_hanoi(n_disks - 1, rod_B, rod_A, rod_C)
+        tower_hanoi(n_disks - 1, aux, fromm, to)
+
+    # count to moves = 2ⁿ - 1
+    return (2 ** n_disks) - 1
 
 
 if __name__ == "__main__":
-    tower_hanoi(3, "A", "B", "C")
+    print(tower_hanoi(3, "A", "B", "C"))
