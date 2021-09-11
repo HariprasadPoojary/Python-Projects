@@ -13,7 +13,7 @@ class Deck:
         "Eight",
         "Nine",
         "Ten",
-        "Jack",
+        "Joker",
         "Queen",
         "King",
         "Ace",
@@ -28,7 +28,7 @@ class Deck:
         "Eight": 8,
         "Nine": 9,
         "Ten": 10,
-        "Jack": 10,
+        "Joker": 10,
         "Queen": 10,
         "King": 10,
         "Ace": 11,  # defaulting ace to 11 and not 11 or 1
@@ -43,15 +43,57 @@ class Deck:
         shuffle(self.cards)
 
     def get_card(self):
-        card = self.cards.pop(0)
+        card = self.cards.pop()
         value = Deck.ranks_value.get(card[1])
 
         return card, value
 
 
 class Player:
-    ...
+    def __init__(self, name="Player", is_dealer=False) -> None:
+        self.name = "Dealer" if is_dealer is None else name
+        self.score = 0
+        self.is_dealer = is_dealer
+        self.card_list = []
+
+    def hit(self, deck):
+        card, value = deck.get_card()
+        self.score += value
+        self.card_list.append(card)
+
+        return card, value
+
+    def stay(self):
+        pass
+
+    def check_if_bust(self) -> bool:
+        if self.is_dealer:
+            if self.score > 17:
+                return True
+            return False
+        else:
+            if self.score > 21:
+                return True
+            return False
 
 
 if __name__ == "__main__":
-    dck = Deck()
+    deck = Deck()
+    dealer = Player(is_dealer=True)
+    player = Player("hari")
+
+    while True:
+        # * deal two cards
+        # dealer
+        dealer.hit(deck)
+        dealer.hit(deck)
+        # player
+        player.hit(deck)
+        player.hit(deck)
+
+        print(dealer.card_list)
+        print(dealer.score)
+        print(player.card_list)
+        print(player.score)
+
+        break
