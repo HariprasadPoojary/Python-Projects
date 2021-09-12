@@ -51,17 +51,28 @@ class Deck:
 
 class Player:
     def __init__(self, name="Player", is_dealer=False) -> None:
-        self.name = "Dealer" if is_dealer is None else name
+        self.name = "Dealer" if is_dealer else name
         self.score = 0
         self.is_dealer = is_dealer
         self.card_list = []
+
+    def __repr__(self) -> str:
+        score = str(self.score)
+        card_list = [f"{rank} of {suit}" for suit, rank in self.card_list]
+        return ", ".join(card_list) + "\n Total Score: " + score
 
     def hit(self, deck):
         card, value = deck.get_card()
         self.score += value
         self.card_list.append(card)
-
         return card, value
+
+    def input_choice(self):
+        player_choice = ""
+        while player_choice != "h" and player_choice != "s":
+            player_choice = input(f"{self.name}, do you want to hit(h) or stay(s) ?\n")
+
+        return player_choice
 
     def stay(self):
         pass
@@ -76,13 +87,21 @@ class Player:
                 return True
             return False
 
+    def win(self):
+        return self.score == 21
+
 
 if __name__ == "__main__":
     deck = Deck()
     dealer = Player(is_dealer=True)
     player = Player("hari")
 
-    while True:
+    GAME_ON = True
+    PLAYER_ON = True
+    DEALER_ON = True
+    WHO_WON = ""
+
+    while GAME_ON:
         # * deal two cards
         # dealer
         dealer.hit(deck)
@@ -91,9 +110,44 @@ if __name__ == "__main__":
         player.hit(deck)
         player.hit(deck)
 
-        print(dealer.card_list)
-        print(dealer.score)
-        print(player.card_list)
-        print(player.score)
+        while PLAYER_ON:
+            print(player)
+            player_choice = player.input_choice()
+            if player_choice == "h":
+                card, value = player.hit(deck)
+                print(f"{player.name} got {card[1]} of {card[0]}")
 
-        break
+                if player.check_if_bust():
+                    PLAYER_ON = False
+                    DEALER_ON = False
+                    GAME_ON = False
+                    WHO_WON = "Dealer"
+
+                if player.win():
+                    PLAYER_ON = False
+                    GAME_ON = False
+                    DEALER_ON = False
+                    WHO_WON = "Player"
+
+            if player_choice == "s":
+                PLAYER_ON = False
+
+        while DEALER_ON and GAME_ON:
+            if dealer.check_if_bust():
+                print(dealer)
+                WHO_WON = "Player"
+                DEALER_ON = False
+                GAME_ON = False
+            else:
+                while dealer.score < 17:
+                    dealer.hit(deck)
+                    print(dealer)
+                    if dealer.win():
+                        DEALER_ON = False
+                        GAME_ON = False
+                        WHO_WON = "Dealer"
+                    break
+
+    print(f"Winner is {WHO_WON}")
+    print(player)
+    print(dealer)
