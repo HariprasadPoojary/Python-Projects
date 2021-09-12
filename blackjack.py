@@ -59,7 +59,12 @@ class Player:
     def __repr__(self) -> str:
         score = str(self.score)
         card_list = [f"{rank} of {suit}" for suit, rank in self.card_list]
-        return ", ".join(card_list) + "\n Total Score: " + score
+        return (
+            f"======{self.name}======"
+            + "\nCards: "
+            + ", ".join(card_list)
+            + f"\nTotal Score: {score}\n"
+        )
 
     def hit(self, deck):
         card, value = deck.get_card()
@@ -114,8 +119,9 @@ if __name__ == "__main__":
             print(player)
             player_choice = player.input_choice()
             if player_choice == "h":
+                print(f"Hit by {player.name}")
                 card, value = player.hit(deck)
-                print(f"{player.name} got {card[1]} of {card[0]}")
+                print(f"{player.name} got {card[1]} of {card[0]}\n")
 
                 if player.check_if_bust():
                     PLAYER_ON = False
@@ -140,6 +146,7 @@ if __name__ == "__main__":
                 GAME_ON = False
             else:
                 while dealer.score < 17:
+                    print(f"Hit by {dealer.name}")
                     dealer.hit(deck)
                     print(dealer)
                     if dealer.win():
@@ -148,6 +155,6 @@ if __name__ == "__main__":
                         WHO_WON = "Dealer"
                     break
 
-    print(f"Winner is {WHO_WON}")
+    print(f"🏆🏆🏆 Winner is {WHO_WON} 🏆🏆🏆")
     print(player)
     print(dealer)
